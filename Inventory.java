@@ -1,145 +1,201 @@
-import  java.util.ArrayList;
+// Inventory.java
+// allows for storing some number of items for the player
+
+import java.util.ArrayList;
 import java.util.Scanner;
+
 import ansi_terminal.*;
 
-class Inventory{
+public class Inventory {
+    // the actual list of items
+    private ArrayList<Item> items;
 
-        //this class is the class that houses the inventory system. it is capable of constructing a new inventory
-        //and has different functions that the main class uses to mainupulate the data within the inventory object.
+    // which item is equipped, if any
+    private Item equippedArmor;
+    private Item equippedWeapon;
 
-        private ArrayList<Item> items = new ArrayList<Item>(50);
-        private int maxWeight;
-        private Item equippedWeapon;
-        private Item equippedArmor;
-        private int currentWeight;
+    // the max weight limit for the player here
+    private int maxWeight;
 
-        Inventory(int maxWeight){
+    public Inventory(int maxWeight) {
+        items = new ArrayList<Item>();
+        this.maxWeight = maxWeight;
+    }
 
-                //this is the constructor for the inventory object. it takes the maximum weight a user can
-                //carry as the parameter and sets the instance variable as the requested weight.
-                //it also defaults the initial weight as zero, simulating an empty inventory.
-
-                this.maxWeight = maxWeight;
-                currentWeight = 0;
+    // returns true on success, false when full
+    public boolean add(Item item) {
+        if ((item.getWeight() + totalWeight()) > maxWeight) {
+            return false;
+        } else {
+            items.add(item);
+            return true;
         }
+    }
 
-        boolean add(Item item){
+    // this method not only adds the item, but equips it into the correct slot
+    // it is used for setting up the player's starting gear
+    public void addAndEquip(Item item) {
+        items.add(item);
 
-                //this method adds an item object to the inventory. it checks that the user is not carrying
-                //too much weight, and then adds the item to the inventory if there is enough space.
+        if (item.getType() == ItemType.Weapon) {
+            equippedWeapon = item;
+        } else if (item.getType() == ItemType.Armor) {
+            equippedArmor = item;
+        }
+    }
 
-                int itemWeight = item.getWeight();
+    // get the equipped weapon and armor
+    public Item getEquippedWeapon() {
+        return equippedWeapon;
+    }
 
-                if(currentWeight+itemWeight > maxWeight){
-                        System.out.println("You are carrying too much weight. Clear up some space in your inventory.");
-                        return(false);
+    public Item getEquippedArmor() {
+        return equippedArmor;
+    }
+
+    // returns the total weight of all items stored
+    public int totalWeight() {
+        int total = 0;
+        for (Item i : items) {
+            total += i.getWeight();
+        }
+        return total;
+    }
+
+    // print all of the items in the list, that match they given type (can be null)
+    // returns the number of items matching they type
+    private int print(ItemType filter) {
+        // clear the terminal so we print over all else
+        Terminal.clear();
+
+        // print a heading row
+        // the numbers and junk are to make it print in nice columns
+        Terminal.setForeground(Color.RED);
+        System.out.printf("%-4s %-40s %-8s %-8s %-8s\n\r", "No.", "Name", "Weight", "Value", "Strength");
+        Terminal.reset();
+
+        // print each item out
+        int num = 0;
+        for (Item i : items) {
+            if (filter == null || i.getType() == filter) {
+                System.out.printf("%-4d %-40s %-8s %-8s %-8s", num + 1, i.getName(), i.getWeight(), i.getValue(), i.getStrength());
+
+                // tell them if this thing is equipped
+                if (i == equippedArmor) {
+                    System.out.print(" (equipped armor)");
+                } else if (i == equippedWeapon) {
+                    System.out.print(" (equipped weapon)");
                 }
-                else{
-                        System.out.println("Item added successfully.");
-                        items.add(item);
-                        currentWeight = currentWeight + itemWeight;
-                        return (true);
+                System.out.print("\n\r");
+
+                num++;
+            }
+        }
+
+        return num;
+    }
+
+    // stay here until the user is ready to go back
+    public void pressAnyKey() {
+        System.out.printf("\n\rPress any key to return...\n\r");
+        Terminal.getKey();
+    }
+
+    // print all of the items in the list
+    public void print() {
+        print(null);
+        pressAnyKey();
+    }
+
+    // drop an item from the inventory, return what was dropped
+    public Item drop() {
+        Item toDrop = pickItem(null);
+        if (toDrop != null) {
+            // if we're dropping our equipped stuff, remove those too!
+            if (equippedWeapon == toDrop) {
+                equippedWeapon = null;
+            } else if (equippedArmor == toDrop) {
+                equippedArmor = null;
+            }
+
+            items.remove(toDrop);
+        }
+
+        if (toDrop != null) {
+            System.out.print("You dropped the " + toDrop.getName() + "...\n\r");
+        } else {
+            System.out.print("You dropped nothing...\n\r");
+        }
+
+        pressAnyKey();
+        return toDrop;
+    }
+
+    // equip something
+    private Item equip(ItemType type) {
+        Item thing = pickItem(type);
+        if (thing != null) {
+            System.out.print("You equipped the " + thing.getName() + "\n\r");
+        } else {
+            System.out.print("You equipped nothing...\n\r");
+        }
+        pressAnyKey();
+        return thing;
+    }
+
+    // equip a weapon
+    public void equipWeapon() {
+        equippedWeapon = equip(ItemType.Weapon);
+    }
+
+    // equip a piece of armor
+    public void equipArmor() {
+        equippedArmor = equip(ItemType.Armor);
+    }
+
+    // a method which allows users to choose an item
+    // this is private - only called by drop and equip
+    private Item pickItem(ItemType filter) {
+        // print all the matching items
+        int options = print(filter);
+
+        if (options == 0) {
+            System.out.print("You have no appropriate items!\n\r");
+            return null;
+        }
+
+        // give them a cancel option as well
+        System.out.print((options + 1) + "    None\n\r");
+
+        // get their choice, only allowing ints in the correct range
+        int choice = 0;
+        do {
+            String entry = Terminal.getLine("Select an item: ");
+            try {
+                choice = Integer.parseInt(entry) - 1;
+            } catch (NumberFormatException e) {
+                choice = -1;
+            }
+        } while (choice < 0 || choice > options);
+
+        // go through and skip items until we reach this one
+        int realIndex = 0;
+        for (Item i : items) {
+            if (filter == null || i.getType() == filter) {
+                if (choice == 0) {
+                    break;
                 }
-        }
-	int totalWeight(){
-
-                //this method returns the overall weight of the inventory.
-
-                return currentWeight;
+                choice--;
+            }
+            realIndex++;
         }
 
-        void print(){
-
-                //this method loops through the inventory and prints out each item that it contains.
-
-                for(int a = 0; a < items.size();a++){
-                        Item currentItem = items.get(a);
-                        Terminal.warpCursor(10+a, 72);
-			System.out.print(currentItem);
-                }
+        // return the thing they chose
+        if (realIndex < 0 || realIndex >= items.size()) {
+            return null;
+        } else {
+            return items.get(realIndex);
         }
-
-        void drop(){
-
-                //this method loops through the inventory and prints out each item. it asks which item
-                //the user would like to abandon. once the user selects one, the method subtracts that items
-                //weight from the total weight of the inventory, and then removes it from the inventory.
-
-                for(int b = 1; b < items.size()+1;b++){
-                        Item currentItem = items.get(b-1);
-                        System.out.println(b);
-                        System.out.println(currentItem.toString());
-                }
-
-                System.out.println("Which item would you like to drop");
-                Scanner drop = new Scanner(System.in);
-                int dropAnswer = drop.nextInt();
-
-                Item selectedItem = items.get(dropAnswer-1);
-                int itemWeight = selectedItem.getWeight();
-                currentWeight = currentWeight - itemWeight;
-                items.remove(dropAnswer-1);
-
-        }
-	void equipWeapon(){
-
-                //this method equips a weapon by looping through the inventory and picking out all
-                //items with the type "weapon". it then asks the user which weapon they would
-                //like to equip, and sets the selection equal to the equip instance variable.
-
-                for(int c = 0; c < items.size();c++){
-			Item currentItem = items.get(c);
-                        ItemType weapon = ItemType.weapon;
-                        if(currentItem.getType() == weapon){
-                                System.out.println((c+1) + "\n\r");
-                                System.out.println(currentItem.toString() + "\n\r");
-                        }
-
-                }
-		System.out.println("\n \r");
-                System.out.println("Which weapon would you like to equip?\n\r");
-                Scanner weaponequ = new Scanner(System.in);
-                int equAnswer = weaponequ.nextInt();
-
-                Item myWeapon = items.get(equAnswer-1);
-                equippedWeapon = myWeapon;
-               
-                System.out.println(equippedWeapon + " has been equipped.\n\r");
-		System.out.println("\n\r");
-        }
-	void equipArmor(){
-
-                //this method equips armor by looping through the inventory and picking out all
-                //items with the type "armor". it then asks the user which armor they would
-                //like to equip, and sets the selection equal to the equip instance variable.
-
-                for(int d = 0; d < items.size();d++){
-			Item currentItem = items.get(d);
-                        ItemType armor = ItemType.armor;
-                        if(currentItem.getType() == armor){
-                                System.out.println((d+1) + "\n\r");
-                                System.out.println(currentItem.toString() + "\n\r");
-                        }
-                }
-		System.out.println("\n\r");
-                System.out.println("Which armor would you like to equip?\n\r");
-                Scanner armorequ = new Scanner(System.in);
-                int equAnswer = armorequ.nextInt();
-
-                Item myArmor = items.get(equAnswer-1);
-                equippedArmor = myArmor;
-                System.out.println(equippedArmor + " has been equipped.\n\r");
-
-        }
-	public Item getWeapon() {
-		return equippedWeapon;
-	}
-	public Item getArmor() {
-		return equippedArmor;
-	}
-
+    }
 }
-
-
-
 

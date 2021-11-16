@@ -1,6 +1,10 @@
-//this class is an enumeration class that contains the names of all the item types.
+// ItemType.java
+// an enum for specifying what type an item is
+// this is important when it comes to equipping
 
-public enum ItemType{
-        weapon, armor, other
+public enum ItemType {
+    Weapon,
+    Armor,
+    Other
 }
 

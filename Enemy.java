@@ -1,75 +1,70 @@
+// Enemy.java
 
+import java.util.Random;
+import ansi_terminal.*;
 
-class Enemy {
+public class Enemy extends Character {
+    private String name;
+    private int damage;
+    private int protection;
+    private static Random rng;
+    private boolean battleActive;
 
+    public Enemy(String name, int row, int col, int hp, int damage, int protection) {
+        super(row, col, '*', Color.RED, hp);
+        this.name = name;
+        this.damage = damage;
+        this.protection = protection;
+        this.battleActive = false;
+        rng = new Random();
+    }
 
-	String name;
-	int maxHealth;
-	int currHealth;
-	int damage;
-	int x;
-	int y;
-	boolean isDead;
+    @Override
+    public int getDamage() {
+        return damage;
+    }
 
+    @Override
+    public int getProtection() {
+        return protection;
+    }
 
+    @Override
+    public String getName() {
+        return name;
+    }
 
-	public Enemy (int currHealth, int maxHealth, int damage, String name, int x, int y) {
-		this.maxHealth = maxHealth;
-		this.damage = damage;
-		this.name = name;
-		this.currHealth = currHealth;
-		this.x = x;
-		this.y = y;
-		isDead = false;
+    public void setBattleActive() {
+        battleActive = true;
+    }
 
-	}
+    // randomly move this enemy in the room
+    public void walk(Room room) {
+        // if a battle is active with this enemy, they DONT walk right after
+        if (battleActive) {
+            battleActive = false;
+            return;
+        }
 
-	public int getX() {
-		return x;
-	}
-	
-	public int getY() {
-		return y;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public int getMaxHealth() {
-		return maxHealth;
-	}
-
-	public int getCurrHealth() {
-		return currHealth;
-	}
-
-	public int getDamage() {
-		return damage;
-	}
-
-	public void setName(String newName) {
-		name = newName;
-	}
-
-	public void setMaxHealth(int newMaxHealth) {
-		maxHealth = newMaxHealth;
-	}
-
-	public void setCurrent(int newCurrHealth) {
-		currHealth = newCurrHealth;
-	}
-
-	public void moveLocation(int newX, int newY) {
-		x = newX;
-		y = newY;
-	}
-	public boolean getIsDead(){
-		return isDead;
-	}
-	
-	public boolean setIsDead() {
-		isDead = true;
-		return isDead;
-	}
+        // loop forever until we move correctly
+        while (true) {
+            int choice = rng.nextInt(4);
+            switch (choice) {
+                case 0:
+                    if (move(0, 1, room)) return;
+                    break;
+                case 1:
+                    if (move(0, -1, room)) return;
+                    break;
+                case 2:
+                    if (move(1, 0, room)) return;
+                    break;
+                case 3:
+                    if (move(-1, 0, room)) return;
+                    break;
+            }
+        }
+    }
 }
+
+

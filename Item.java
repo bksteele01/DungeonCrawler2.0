@@ -1,64 +1,56 @@
-class Item{
+// Item.java
+// this class represents a single item, it could be an equippable
+// thing like weapon or ring, or something generic
 
-        //this class holds information for an item object. It can build an item object, and contains methods
-        //to return certain elements of the item.
+public class Item {
+    // what sort of item it is
+    private ItemType type;
 
-        private ItemType type;
-        private String name;
-        private int weight;
-        private int value;
-        private int strength;
-	private boolean pickedUp;
+    // the name of the item as shown to the user
+    private String name;
 
-        Item(ItemType type, String name, int weight, int value, int strength){
+    // how much it weighs (player can only carry so much)
+    private int weight;
 
-                //this is a constructor for an item object. it takes all the parameters and sets them equal
-                //to the instance variables of the object.
-		pickedUp = false;
-                this.type = type;
-                this.name = name;
-                this.weight = weight;
-                this.value = value;
-                this.strength = strength;
-        }
+    // how much the item is worth for buying/selling
+    private int value;
 
-	public int getStrength() {
-		return strength;
-	}
+    // the item's strength - this differs based on the type
+    // for a weapon, it's damage
+    // for armor, it's protection
+    private int strength;
 
-        public ItemType getType(){
+    public Item(ItemType type, String name, int weight, int value, int strength) {
+        this.type = type;
+        this.name = name;
+        this.weight = weight;
+        this.value = value;
+        this.strength = strength;
+    }
 
-                //this method returns the instance variable type.
+    public int getWeight() {
+        return weight;
+    }
 
-                return type;
-        }
+    public int getValue() {
+        return value;
+    }
 
-        public int getWeight(){
+    public int getStrength() {
+        return strength;
+    }
 
-                //tbis method returns the instance variable weight.
+    public String getName() {
+        return name;
+    }
 
-                return weight;
-        }
+    public ItemType getType() {
+        return type;
+    }
 
-        public int getValue(){
-
-                //this method returns the instance variable value.
-
-                return value;
-        }
-	public String getName(){
-
-                //this method returns the instance variable name.
-
-                return name;
-        }
-
-        public String toString(){
-
-                //this method returns all of the data that the object contains in an informative format.
-
-                return("Type: "+type+" --- Name: "+name+" --- Weight: "+weight+" --- Value: "+value+" --- Strength: "+strength);
-        }
+    @Override
+    public String toString() {
+        return name + " " + weight + " " + value + " " + strength;
+    }
 }
-
 
