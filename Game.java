@@ -132,6 +132,12 @@ public class Game {
 		}else{
 			break;
 		}
+
+		// key for saving the game
+	case s:
+		Save save = new Save(player.getHealth());
+		break;
+
 		
             // handle movement
             case LEFT: 
