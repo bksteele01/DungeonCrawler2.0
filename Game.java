@@ -8,11 +8,14 @@ import java.util.Scanner;
 public class Game {
     private Room room;
     private Room room2;
+    private Room room3;
     private Player player;
     private ArrayList<Box> boxes;
     private ArrayList<Enemy> enemies;
     private ArrayList<Box> boxes2;
+    private ArrayList<Box> boxes3;
     private ArrayList<Enemy> enemies2;
+    private ArrayList<Enemy> enemies3;
     private int whichRoom;
 
     public Game() {
@@ -57,7 +60,8 @@ public class Game {
     // right under the map we keep a line for status messages
     private void setStatus(String mesg) {
         // clear anything old first
-        Terminal.warpCursor(room.getRows(), 0);
+        if(whichRoom == 1){
+	Terminal.warpCursor(room.getRows(), 0);
         for (int i = 0; i < 100; i++) {
             System.out.print(" ");
         }
@@ -65,6 +69,17 @@ public class Game {
         // then print the message
         Terminal.warpCursor(room.getRows(), 0);
         System.out.print(mesg);
+	}
+	if(whichRoom == 2){
+        Terminal.warpCursor(room2.getRows(), 0);
+        for (int i = 0; i < 100; i++) {
+            System.out.print(" ");
+        }
+
+        // then print the message
+        Terminal.warpCursor(room2.getRows(), 0);
+        System.out.print(mesg);
+        }	
     }
 
     // code for when the player tries to pickup an item
@@ -199,13 +214,18 @@ public class Game {
     // returns a Box if the player is on it -- otherwise null
     private Box checkForBox() {
         Position playerLocation = player.getPosition();
-
+	if(whichRoom == 1){
         for (Box box : boxes) {
             if (playerLocation.equals(box.getPosition())) {
                 return box;
         }
-        }
-
+        }}
+	if(whichRoom == 2){
+	for(Box box : boxes2){
+		if(playerLocation.equals(box.getPosition())){
+			return box;
+		}
+	}}
         return null;
     }
 
@@ -288,6 +308,7 @@ public class Game {
             	Box thingHere = checkForBox();
             	if (thingHere != null) {
                 	setStatus("Here you find: " + thingHere.getItem().getName());
+			Terminal.pause(2);
             
 	    	}
 	    }
