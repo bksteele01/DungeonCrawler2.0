@@ -11,13 +11,43 @@ import ansi_terminal.*;
 
 
 public class Save {
-	private int hp;
-	
-	public Save(int hp){
-		this.hp = hp;
 
-	}
+	private String name;
+	private int hp;
+	private int pCol;
+	private int pPos;
+	private static int SaveCounter;
+	private String SaveName;
+	private boolean Pass = true;
+	
+	public Save(String name, int hp){
+		this.hp = hp;
+		this.name = name;
 		
+	}
+	
+	public void SaveMaker(){
+		try{
+			if(pass == true){
+				SaveCounter++;
+				SaveName = this.name + toString(SaveCounter)+ ".txt";
+				File savef = new File(SaveName);
+				if(savef.createNewFile()){
+					System.out.print("File created " + savef.getName());
+				}
+				else{
+					System.out.print("File Already Created ");
+				
+				}
+			}
+		
+		}catch (IOException e){
+			System.out.print("An Error Occured");
+		
+		}
+		
+	
+	}
 
 	
 

@@ -154,7 +154,8 @@ public class Game {
 
 		// key for saving the game
 	case s:
-		Save save = new Save(player.getHealth());
+		Save save = new Save(player.getName() ,player.getHealth());
+		
 		break;
 
 		
