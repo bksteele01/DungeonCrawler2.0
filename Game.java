@@ -20,7 +20,6 @@ public class Game {
 	Scanner input = new Scanner(System.in);
 	System.out.print(" What is your name? \r \n");
 	String name = input.next();
-//	Player player = new Player(0,0);
 	System.out.print("\r \n");
 	System.out.print("Welcome " + name +"!" + "\r \n");
 	Terminal.pause(3);	
