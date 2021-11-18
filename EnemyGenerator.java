@@ -4,9 +4,43 @@
 import java.util.Random;
 
 public class EnemyGenerator {
-    public static Enemy generate(int row, int col) {
-        // TODO: replace this with your own code!
-        return new Enemy("Goblin", row, col, 20, 5, 3);
-    }
+	public static Enemy generate(int row, int col) {
+		//hp damage protection 
+		Enemy Goblin = new Enemy("Goblin", row, col, 20, 5, 3);
+		Enemy Vampire = new Enemy("Vampire", row, col, 21, 8, 4);
+		Enemy Giant = new Enemy("Giant", row, col, 23, 15, 6);
+		Enemy Werewolf = new Enemy("Werewolf", row, col, 22, 10, 5);
+
+		Enemy Initializer = new Enemy("", row, col, 0, 0, 0);
+		int EnemyPick = RandomNum();
+		Enemy chosen = Initializer;
+
+		switch (EnemyPick){
+			case 1:
+				chosen = Goblin;
+				break;
+			case 2:
+				chosen = Vampire;
+				break;
+			case 3:
+				chosen = Giant;
+				break;
+			case 4:
+				chosen = Werewolf;
+				break;
+		}
+		return chosen;
+	}
+	public static int RandomNum(){
+
+		//this method generates a random number between one and sixteen, and is used
+		//to pick the object out of the list.
+
+		Random random = new Random();
+		int EnemyPicker = random.nextInt(4);
+		return(EnemyPicker);
+	}
+
+
 }
 

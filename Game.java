@@ -29,7 +29,7 @@ public class Game {
 	Terminal.pause(1);
 	System.out.println("Loading..\r \n ");
 	Terminal.pause(1);
-	System.out.println("Loading... \r \n");
+	System.out.println("Loading...\r \n");
 	Terminal.pause(1);	
 
         room = new Room(1);
