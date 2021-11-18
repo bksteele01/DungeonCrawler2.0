@@ -39,7 +39,7 @@ public class Game {
         };
         Terminal.setForeground(Color.GREEN);
         for (int row = 0; row < cmds.length; row++) {
-            Terminal.warpCursor(row + 1, room.getCols());
+            Tmaperminal.warpCursor(row + 1, room.getCols());
             System.out.print(cmds[row]);
         }
         Terminal.reset();
@@ -188,7 +188,7 @@ public class Game {
         for (Box box : boxes) {
             if (playerLocation.equals(box.getPosition())) {
                 return box;
-            }
+        }
         }
 
         return null;
@@ -295,7 +295,7 @@ public class Game {
 
             	// move the enemies
             	for (Enemy enemy : enemies2) {
-                	enemy.walk(room);
+                	enemy.walk(room2);
             	}
 
             	// check for battles
