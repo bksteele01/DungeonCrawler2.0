@@ -48,7 +48,7 @@ public class Game {
         };
         Terminal.setForeground(Color.GREEN);
         for (int row = 0; row < cmds.length; row++) {
-            Tmaperminal.warpCursor(row + 1, room.getCols());
+            Terminal.warpCursor(row + 1, room.getCols());
             System.out.print(cmds[row]);
         }
         Terminal.reset();
