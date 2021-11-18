@@ -3,6 +3,7 @@
 
 import java.util.ArrayList;
 import ansi_terminal.*;
+import java.util.Scanner;
 
 public class Game {
     private Room room;
@@ -15,6 +16,14 @@ public class Game {
     private int whichRoom;
 
     public Game() {
+
+	Scanner input = new Scanner(System.in);
+	System.out.print(" What is your name? \r \n");
+	String name = input.next();
+	System.out.print("\r \n");
+	System.out.print("Welcome " + name +"!" + "\r \n");
+	Terminal.pause(3);	
+
         room = new Room(1);
 	room2 = new Room(2);
         player = new Player(room.getPlayerStart());
