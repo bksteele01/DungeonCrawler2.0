@@ -22,7 +22,12 @@ public class Game {
 	String name = input.next();
 	System.out.print("\r \n");
 	System.out.print("Welcome " + name +"!" + "\r \n");
-	Terminal.pause(3);	
+	System.out.print("Loading. \r \n");
+	Terminal.pause(1);
+	System.out.println("Loading..\r \n ");
+	Terminal.pause(1);
+	System.out.println("Loading... \r \n");
+	Terminal.pause(1);	
 
         room = new Room(1);
 	room2 = new Room(2);
