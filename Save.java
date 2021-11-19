@@ -28,10 +28,9 @@ public class Save {
 	
 	public void SaveMaker(){
 		try{
-			if(pass == true){
+			if(Pass == true){
 				SaveCounter++;
-				SaveName = this.name + toString(SaveCounter)+ ".txt";
-				File savef = new File(SaveName);
+				File savef = new File("Save1.txt");
 				if(savef.createNewFile()){
 					System.out.print("File created " + savef.getName());
 				}
