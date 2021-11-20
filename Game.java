@@ -55,8 +55,8 @@ public class Game {
                          "List items: l",
                          "Equip weapon: w",
                          "Equip armor: a",
-                         "Quit: q",
-			 "test"
+                         "Quit: q"
+			 
 			 
         };
         Terminal.setForeground(Color.GREEN);
@@ -210,7 +210,7 @@ public class Game {
                         player.move(0, 1, room2);
                         break;
                 }
-		if whichRoom == 3){
+		if(whichRoom == 3){
 			player.move(0, 1, room3);
 			break;
 		}
@@ -223,8 +223,8 @@ public class Game {
                         player.move(-1, 0, room2);
                         break;
                 }
-		if(whichroom == 3){
-			player.move(-1, 0, room3):
+		if(whichRoom == 3){
+			player.move(-1, 0, room3);
 			break;
 		}
             case DOWN:
@@ -263,28 +263,28 @@ public class Game {
 	room3.draw();	
         showHelp();
     }
-
+    }
     // returns a Box if the player is on it -- otherwise null
-    private Box checkForBox() {
+     private Box checkForBox() {
         Position playerLocation = player.getPosition();
-	if(whichRoom == 1){
+        if(whichRoom == 1){
         for (Box box : boxes) {
             if (playerLocation.equals(box.getPosition())) {
                 return box;
         }
         }}
-	if(whichRoom == 2){
-	for(Box box : boxes2){
-		if(playerLocation.equals(box.getPosition())){
-			return box;
-		}
-	}}
-	if(whichRoom == 3){
-	for(Box box : boxes3){
-		if(playerLocation.equals(box.getPosition())){
-			return box;
-		}
-	}}
+        if(whichRoom == 2){
+        for(Box box : boxes2){
+                if(playerLocation.equals(box.getPosition())){
+                        return box;
+                }
+        }}
+        if(whichRoom == 3){
+        for(Box box : boxes3){
+                if(playerLocation.equals(box.getPosition())){
+                        return box;
+                }
+        }}
         return null;
     }
 
