@@ -34,11 +34,14 @@ public class Game {
 
         room = new Room(1);
 	room2 = new Room(2);
+	room3 = new Room(3);
         player = new Player(room.getPlayerStart());
         boxes = room.getBoxes();
         enemies = room.getEnemies();
 	boxes2 = room2.getBoxes();
+	boxes3 = room3.getBoxes();
 	enemies2 = room2.getEnemies();
+	enemies3 = room3.getEnemies();
 	whichRoom = 1;
     }
 
@@ -53,6 +56,8 @@ public class Game {
                          "Equip weapon: w",
                          "Equip armor: a",
                          "Quit: q"
+			 
+			 
         };
         Terminal.setForeground(Color.GREEN);
         for (int row = 0; row < cmds.length; row++) {
@@ -80,11 +85,21 @@ public class Game {
         for (int i = 0; i < 100; i++) {
             System.out.print(" ");
         }
-
+		
         // then print the message
         Terminal.warpCursor(room2.getRows(), 0);
         System.out.print(mesg);
-        }	
+        }
+	if(whichRoom == 3){
+	Terminal.warpCursor(room3.getRows(), 0);
+	for (int i = 0; i < 100; i++) {
+		System.out.print(" ");
+	}
+	// then print the message
+	Terminal.warpCursor(room3.getRows(), 0);
+	System.out.print(mesg);
+	System.out.print(whichRoom);
+	}
     }
 
     // code for when the player tries to pickup an item
@@ -144,14 +159,27 @@ public class Game {
                 redrawMapAndHelp();
                 break;
 	    case u:
+		if(whichRoom == 1){
 	    	if(player.getCol() == 15 && player.getRow() == 1){
 			whichRoom = 2;
 			player.setPosition(2, 2);
 			break;
 		}else{
 			break;
+		     }
 		}
 
+		if(whichRoom == 2){
+		if(player.getCol() == 15 && player.getRow() == 1){
+                        whichRoom = 3;
+                        player.setPosition(10, 10);
+                        break;
+                }else{
+                        break;
+                    
+	       		}
+	             }
+			
 		// key for saving the game
 	case s:
 		Save save = new Save(player.getName() ,player.getHealth());
@@ -169,6 +197,10 @@ public class Game {
 			player.move(0, -1, room2);
 			break;
 		}
+		if(whichRoom == 3){
+			player.move(0, - 1, room3);
+			break;
+		}
             case RIGHT:
 	    	if(whichRoom == 1){
                         player.move(0, 1, room);
@@ -178,6 +210,10 @@ public class Game {
                         player.move(0, 1, room2);
                         break;
                 }
+		if(whichRoom == 3){
+			player.move(0, 1, room3);
+			break;
+		}
             case UP:
 	    	if(whichRoom == 1){
                         player.move(-1, 0, room);
@@ -187,7 +223,10 @@ public class Game {
                         player.move(-1, 0, room2);
                         break;
                 }
-
+		if(whichRoom == 3){
+			player.move(-1, 0, room3);
+			break;
+		}
             case DOWN:
 	    	if(whichRoom == 1){
                         player.move(1, 0, room);
@@ -197,6 +236,10 @@ public class Game {
                         player.move(1, 0, room2);
                         break;
                 }
+		if(whichRoom == 3){
+			player.move(1, 0, room3);
+			break;
+		}
             // and finally the quit command
             case q:
                 return false;
@@ -210,28 +253,38 @@ public class Game {
     private void redrawMapAndHelp() {
        	if(whichRoom == 1){
 	room.draw();
+	showHelp();
 	}
 	if(whichRoom == 2){
 	room2.draw();
+	showHelp();
 	}
+	if(whichRoom == 3){
+	room3.draw();	
         showHelp();
     }
-
+    }
     // returns a Box if the player is on it -- otherwise null
-    private Box checkForBox() {
+     private Box checkForBox() {
         Position playerLocation = player.getPosition();
-	if(whichRoom == 1){
+        if(whichRoom == 1){
         for (Box box : boxes) {
             if (playerLocation.equals(box.getPosition())) {
                 return box;
         }
         }}
-	if(whichRoom == 2){
-	for(Box box : boxes2){
-		if(playerLocation.equals(box.getPosition())){
-			return box;
-		}
-	}}
+        if(whichRoom == 2){
+        for(Box box : boxes2){
+                if(playerLocation.equals(box.getPosition())){
+                        return box;
+                }
+        }}
+        if(whichRoom == 3){
+        for(Box box : boxes3){
+                if(playerLocation.equals(box.getPosition())){
+                        return box;
+                }
+        }}
         return null;
     }
 
@@ -268,6 +321,22 @@ public class Game {
                         return player.fight(opponent, room2, enemies2);
                 }
                 return true;
+	}
+	if(whichRoom == 3){
+		Position playerLocation = player.getPosition();
+		//look for an enemy that is close
+		Enemy opponent = null;
+		for (Enemy enemy : enemies3) {
+			if (playerLocation.isAdjacent(enemy.getPosition())) {
+				opponent = enemy;
+			}
+		}
+		// now do the battle
+		if (opponent != null) {
+			opponent.setBattleActive();
+			return player.fight(opponent, room3, enemies3);
+		}
+		return true;
 	}
 	return true;
     }	
@@ -353,6 +422,41 @@ public class Game {
 			setStatus("Here you find: " + thingHere.getItem().getName());
            	}
 	    }
+	      if(whichRoom == 3){
+                for (Box box : boxes3) {
+                        box.draw();
+                }
+                for (Enemy enemy : enemies3) {
+                        enemy.draw();
+                }
+                player.draw();
+
+                // read a key from the user
+                Terminal.warpCursor(room.getRows() + 1, 0);
+                Key key = Terminal.getKey();
+                playing = handleKey(key);
+
+                // clear status by default
+                setStatus("");
+
+                // move the enemies
+                for (Enemy enemy : enemies3) {
+                        enemy.walk(room3);
+                }
+
+                // check for battles
+                if (checkBattles() == false) {
+                        setStatus("You have been killed :(\n\r");
+                        playing = false;
+                }
+
+                // check if we are on a box and print what's in it
+                Box thingHere = checkForBox();
+                if (thingHere != null) {
+
+                        setStatus("Here you find: " + thingHere.getItem().getName());
+                }
+            }
 	    i++;
 	    
             }
