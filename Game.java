@@ -55,6 +55,7 @@ public class Game {
                          "List items: l",
                          "Equip weapon: w",
                          "Equip armor: a",
+			 "Enter door: u",
                          "Quit: q"
 			 
 			 
