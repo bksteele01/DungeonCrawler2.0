@@ -192,7 +192,7 @@ public class Game {
 		System.out.print("Save name... ");
 		Scanner input = new Scanner(System.in);
 		saveName = input.next();			
-		Save save = new Save(player.getName() ,player.getHealth(), player.getCol(), player.getRow(), saveName, whichRoom);
+		Save save = new Save(player.getName() ,player.getHealth(), player.getCol(), player.getRow(), saveName, whichRoom, player.getInventory());
 		
 
 		break;

@@ -20,16 +20,18 @@ public class Save {
 	private String SaveName;
 	private boolean Pass = true;
 	private int Room;
+	private Inventory items;
+	
 
 	
-	public Save(String name, int hp, int pCol, int pPos, String SaveName, int Room){
+	public Save(String name, int hp, int pCol, int pPos, String SaveName, int Room, Inventory items){
 		this.hp = hp;
 		this.name = name;
 		this.pCol = pCol;
 		this.pPos = pPos;
 		this.SaveName = SaveName;
-		this.Room = room;
-
+		this.Room = Room;
+		this.items = items;
 		
 	}
 	
