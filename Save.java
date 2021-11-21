@@ -28,7 +28,7 @@ public class Save {
 	
 	public void SaveMaker(){
 		try{
-			if(pass == true){
+			if(Pass == true){
 				SaveCounter++;
 				SaveName = this.name + toString(SaveCounter)+ ".txt";
 				File savef = new File(SaveName);

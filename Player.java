@@ -14,8 +14,9 @@ public class Player extends Character {
 
         // give them some basic stuff to start with
         // TODO make up your own starting equipment!
-        items.addAndEquip(new Item(ItemType.Weapon, "Iron Dagger", 5, 12, 7));
-        items.addAndEquip(new Item(ItemType.Armor, "Leather Armor", 15, 20, 3));
+        items.addAndEquip(new Item(ItemType.Weapon, "Table Knife", 5, 12, 7));
+        items.addAndEquip(new Item(ItemType.Armor, "Dirty T-Shirt", 15, 20, 3));
+        items.addAndEquip(new Item(ItemType.Armor, "Leather Helmet", 15, 20, 3));
     }
 
     @Override
