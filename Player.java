@@ -12,11 +12,10 @@ public class Player extends Character {
         // we can carry 100 pounds of items
         items = new Inventory(100);
 
-        // give them some basic stuff to start with
-        // TODO make up your own starting equipment!
+        // Basic and simple equipment that the player starts with 
         items.addAndEquip(new Item(ItemType.Weapon, "Table Knife", 5, 12, 7));
         items.addAndEquip(new Item(ItemType.Armor, "Dirty T-Shirt", 15, 20, 3));
-        items.addAndEquip(new Item(ItemType.Armor, "Leather Helmet", 15, 20, 3));
+        items.addAndEquip(new Item(ItemType.Armor, "Leather Helmet", 10, 20, 3));
     }
 
     @Override

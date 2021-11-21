@@ -5,13 +5,14 @@ import java.util.Random;
 
 public class EnemyGenerator {
 	public static Enemy generate(int row, int col) {
-		//hp damage protection 
+		//hp damage protection
+		//These are the enemies that will randomly generate  
 		Enemy Goblin = new Enemy("Goblin", row, col, 20, 5, 3);
 		Enemy Vampire = new Enemy("Vampire", row, col, 21, 8, 4);
 		Enemy Giant = new Enemy("Giant", row, col, 23, 15, 6);
 		Enemy Werewolf = new Enemy("Werewolf", row, col, 22, 10, 5);
 
-		Enemy Initializer = new Enemy("", row, col, 0, 0, 0);
+		Enemy Initializer = new Enemy("Ghost", row, col, 0, 0, 0);
 		int EnemyPick = RandomNum();
 		Enemy chosen = Initializer;
 
