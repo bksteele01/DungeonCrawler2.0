@@ -19,10 +19,19 @@ public class Save {
 	private static int SaveCounter;
 	private String SaveName;
 	private boolean Pass = true;
+	private int Room;
+	private Inventory items;
 	
-	public Save(String name, int hp){
+
+	
+	public Save(String name, int hp, int pCol, int pPos, String SaveName, int Room, Inventory items){
 		this.hp = hp;
 		this.name = name;
+		this.pCol = pCol;
+		this.pPos = pPos;
+		this.SaveName = SaveName;
+		this.Room = Room;
+		this.items = items;
 		
 	}
 	
@@ -30,7 +39,10 @@ public class Save {
 		try{
 			if(Pass == true){
 				SaveCounter++;
-				File savef = new File("Save1.txt");
+				File savef = new File(this.SaveName + ".txt");
+								
+				
+
 				if(savef.createNewFile()){
 					System.out.print("File created " + savef.getName());
 				}
@@ -47,7 +59,11 @@ public class Save {
 		
 	
 	}
-
+	public void Restore(){
+		
+	
+	
+	}
 	
 
 }
