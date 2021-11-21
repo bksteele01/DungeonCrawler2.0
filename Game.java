@@ -17,6 +17,8 @@ public class Game {
     private ArrayList<Enemy> enemies2;
     private ArrayList<Enemy> enemies3;
     private int whichRoom;
+    private String saveName;
+
 
     public Game() {
 
@@ -43,6 +45,8 @@ public class Game {
 	enemies2 = room2.getEnemies();
 	enemies3 = room3.getEnemies();
 	whichRoom = 1;
+	saveName = "";
+
     }
 
     // prints a help menu to the left of the map
@@ -55,6 +59,7 @@ public class Game {
                          "List items: l",
                          "Equip weapon: w",
                          "Equip armor: a",
+			 "Save Game: s",
                          "Quit: q"
 			 
 			 
@@ -182,8 +187,14 @@ public class Game {
 			
 		// key for saving the game
 	case s:
-		Save save = new Save(player.getName() ,player.getHealth());
+		// add message to save and file name like in player.getInventory()
+		// redrawMapAndHelp();
+		System.out.print("Save name... ");
+		Scanner input = new Scanner(System.in);
+		saveName = input.next();			
+		Save save = new Save(player.getName() ,player.getHealth(), player.getCol(), player.getRow(), saveName, whichRoom);
 		
+
 		break;
 
 		
