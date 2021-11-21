@@ -8,6 +8,7 @@ import java.util.Scanner;
 import java.util.Collections;
 import java.io.IOException;
 import ansi_terminal.*;
+import java.io.PrintWriter;
 
 
 public class Save {
@@ -16,7 +17,6 @@ public class Save {
 	private int hp;
 	private int pCol;
 	private int pPos;
-	private static int SaveCounter;
 	private String SaveName;
 	private boolean Pass = true;
 	private int Room;
@@ -38,18 +38,20 @@ public class Save {
 	public void SaveMaker(){
 		try{
 			if(Pass == true){
-				SaveCounter++;
 				File savef = new File(this.SaveName + ".txt");
-								
 				
+				PrintWriter out = new PrintWriter(this.SaveName + ".txt");
+				
+					
+				out.println(this.hp);
+				out.println(this.name);
+				out.println(this.pCol);
+				out.println(this.pPos);
+				out.println(this.Room);
+				out.println(this.items);
+				out.close();
 
-				if(savef.createNewFile()){
-					System.out.print("File created " + savef.getName());
-				}
-				else{
-					System.out.print("File Already Created ");
 				
-				}
 			}
 		
 		}catch (IOException e){

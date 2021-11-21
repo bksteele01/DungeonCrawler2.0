@@ -194,13 +194,14 @@ public class Game {
 		// key for saving the game
 	case s:
 		// add message to save and file name like in player.getInventory()
-		// redrawMapAndHelp();
 		System.out.print("Save name... ");
 		Scanner input = new Scanner(System.in);
 		saveName = input.next();			
 		Save save = new Save(player.getName() ,player.getHealth(), player.getCol(), player.getRow(), saveName, whichRoom, player.getInventory());
 		
-
+		save.SaveMaker();	
+		redrawMapAndHelp();
+				
 		break;
 
 		
