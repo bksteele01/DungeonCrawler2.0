@@ -60,6 +60,7 @@ public class Game {
                          "Equip weapon: w",
                          "Equip armor: a",
 			 "Save Game: s",
+			 "Enter door: u",
                          "Quit: q"
 			 
 			 
