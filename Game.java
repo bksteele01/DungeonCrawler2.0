@@ -283,7 +283,27 @@ public class Game {
     }
     // returns a Box if the player is on it -- otherwise null
      private Box checkForBox() {
-        
+		Position playerLocation = player.getPosition();
+        if(whichRoom == 1){
+        for (Box box : boxes) {
+            if (playerLocation.equals(box.getPosition())) {
+                return box;
+        }
+        }}
+        if(whichRoom == 2){
+        for(Box box : boxes2){
+                if(playerLocation.equals(box.getPosition())){
+                        return box;
+                }
+        }}
+        if(whichRoom == 3){
+        for(Box box : boxes3){
+                if(playerLocation.equals(box.getPosition())){
+                        return box;
+                }
+        }}
+        return null;
+      }  
     private boolean checkBattles() {
         if(whichRoom == 1){
 		Position playerLocation = player.getPosition();
