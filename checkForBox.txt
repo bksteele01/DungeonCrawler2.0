@@ -1,0 +1,21 @@
+        Position playerLocation = player.getPosition();
+        if(whichRoom == 1){
+        for (Box box : boxes) {
+            if (playerLocation.equals(box.getPosition())) {
+                return box;
+        }
+        }}
+        if(whichRoom == 2){
+        for(Box box : boxes2){
+                if(playerLocation.equals(box.getPosition())){
+                        return box;
+                }
+        }}
+        if(whichRoom == 3){
+        for(Box box : boxes3){
+                if(playerLocation.equals(box.getPosition())){
+                        return box;
+                }
+        }}
+        return null;
+ 
