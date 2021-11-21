@@ -96,7 +96,12 @@ public class Game {
         } else {
             if (player.getInventory().add(thing.getItem())) {
                 setStatus("You added the " + thing.getItem().getName() + " to your inventory.");
-                boxes.remove(thing);
+                if(whichRoom == 1){
+		boxes.remove(thing);
+		}
+		if(whichRoom == 2){
+		boxes2.remove(thing);
+		}
             } else {
                 setStatus("This is too large for you to add!");
             }
@@ -227,9 +232,9 @@ public class Game {
         }
         }}
 	if(whichRoom == 2){
-	for(Box box : boxes2){
-		if(playerLocation.equals(box.getPosition())){
-			return box;
+	for(Box box2 : boxes2){
+		if(playerLocation.equals(box2.getPosition())){
+			return box2;
 		}
 	}}
         return null;
@@ -347,11 +352,13 @@ public class Game {
             	}
 
             	// check if we are on a box and print what's in it
-            	Box thingHere = checkForBox();
+		Box thingHere = checkForBox();
             	if (thingHere != null) {
-                	
 			setStatus("Here you find: " + thingHere.getItem().getName());
+			Terminal.pause(2);
            	}
+		
+
 	    }
 	    i++;
 	    
