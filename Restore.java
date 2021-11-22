@@ -23,6 +23,12 @@ public class Restore{
 		try{
 			FileInputStream file = new FileInputStream(SaveName + ".txt");
 			input = new Scanner(file);
+		
+			while(input.hasNextLine()){
+				
+				
+			
+			}
 
 		
 		}catch(FileNotFoundException e){
@@ -31,7 +37,7 @@ public class Restore{
 		
 		}
 		
-			
+	
 
 	}
 
