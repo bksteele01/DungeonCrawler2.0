@@ -12,27 +12,26 @@ import java.io.PrintWriter;
 
 
 public class Save {
-
-	private String name;
 	private int hp;
 	private int pCol;
-	private int pPos;
-	private String SaveName;
+	private int pRow;
+	public	String SaveName;
 	private boolean Pass = true;
 	private int Room;
 	private Inventory items;
 	
+	private Player player;	
 
 	
-	public Save(String name, int hp, int pCol, int pPos, String SaveName, int Room, Inventory items){
+	public Save(int hp, int pCol, int pRow, String SaveName, int Room, Inventory items){
 		this.hp = hp;
-		this.name = name;
 		this.pCol = pCol;
-		this.pPos = pPos;
+		this.pRow = pRow;
 		this.SaveName = SaveName;
 		this.Room = Room;
 		this.items = items;
 		
+			
 	}
 	
 	public void SaveMaker(){
@@ -44,11 +43,10 @@ public class Save {
 				
 					
 				out.println(this.hp);
-				out.println(this.name);
 				out.println(this.pCol);
-				out.println(this.pPos);
+				out.println(this.pRow);
 				out.println(this.Room);
-				out.println(this.items);
+				out.println(this.items.toString());
 				out.close();
 
 				
@@ -61,11 +59,17 @@ public class Save {
 		
 	
 	}
+
+
 	public void Restore(){
-		
-	
-	
+		player.setPosition(this.pRow, this.pCol);
+		player.setHealth(this.hp);
+			
 	}
-	
+		
+	public int RoomRestore(){
+		
+		return this.Room;
+	}
 
 }

@@ -60,6 +60,7 @@ public class Game {
                          "Equip weapon: w",
                          "Equip armor: a",
 			 "Save Game: s",
+			 "Restore a save: r",
 			 "Enter door: u",
                          "Quit: q"
 			 
@@ -197,13 +198,15 @@ public class Game {
 		System.out.print("Save name: ");
 		Scanner input = new Scanner(System.in);
 		saveName = input.next();			
-		Save save = new Save(player.getName() ,player.getHealth(), player.getCol(), player.getRow(), saveName, whichRoom, player.getInventory());
-		
+		Save save = new Save(player.getHealth(), player.getCol(), player.getRow(), saveName, whichRoom, player.getInventory());
+		//calls method to save data to file
 		save.SaveMaker();	
 		redrawMapAndHelp();
 				
 		break;
-
+		// key for restoring the save
+	case r:
+		break;
 		
             // handle movement
             case LEFT: 
