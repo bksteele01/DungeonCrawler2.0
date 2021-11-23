@@ -15,8 +15,10 @@ public class Restore{
 	private Player player;
 	public String SaveName;
 
+	private String[] data = new String[2];
+	private int[] data2 = new int[4];
 	
-		
+
 	
 	public void Restore(String SaveName){
 		Scanner input = null;
@@ -24,29 +26,56 @@ public class Restore{
 			FileInputStream file = new FileInputStream(SaveName + ".txt");
 			input = new Scanner(file);
 		
-			while(input.hasNextLine()){
+			for(int i =0; i < 4; i++){
 				
+				if(!input.hasNextInt()){
+					data[i] = input.nextLine();
+				
+				}
+				else{
+					data2[i] = input.nextInt();	
+						
+				}
 				
 			
 			}
+			input.close();
+			
 
-		
 		}catch(FileNotFoundException e){
 			System.out.print("File not found");
 
 		
 		}
 		
+	}
+	public int RoomRestore(){
 	
+		return data2[3];
 
+	
+	}
+	
+	public String SetInventory(){
+	
+		return data[0];
 	}
 
+	public int HpRestore(){
+		
+		return data2[0];
+	}
 
+	public int colRestore(){
+	
+		return data2[1];
+	}
 
+	public int rowRestore(){
+	
+		return data2[2];
+	}
 
-
-
-
-
+	
 
 }

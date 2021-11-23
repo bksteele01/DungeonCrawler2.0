@@ -22,6 +22,10 @@ public class Inventory {
         this.maxWeight = maxWeight;
     }
 
+    public int Size(){
+    	return items.size();
+    }
+	
     // returns true on success, false when full
     public boolean add(Item item) {
         if ((item.getWeight() + totalWeight()) > maxWeight) {
