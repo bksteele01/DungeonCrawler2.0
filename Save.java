@@ -29,9 +29,8 @@ public class Save {
 		this.pRow = pRow;
 		this.SaveName = SaveName;
 		this.Room = Room;
-		this.items = items;
+		this.items = items;		
 		
-			
 	}
 	
 	public void SaveMaker(){
@@ -46,7 +45,7 @@ public class Save {
 				out.println(this.pCol);
 				out.println(this.pRow);
 				out.println(this.Room);
-				out.println(this.items.toString());
+				out.println(this.items);
 				out.close();
 
 				
@@ -59,17 +58,8 @@ public class Save {
 		
 	
 	}
-
-
-	public void Restore(){
-		player.setPosition(this.pRow, this.pCol);
-		player.setHealth(this.hp);
-			
-	}
+	
 		
-	public int RoomRestore(){
-		
-		return this.Room;
-	}
+
 
 }

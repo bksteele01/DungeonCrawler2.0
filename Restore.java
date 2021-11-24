@@ -15,11 +15,11 @@ public class Restore{
 	private Player player;
 	public String SaveName;
 
-	private String[] data = new String[2];
+	//private String[] data = new String[2];
 	private int[] data2 = new int[4];
 	
+	private ArrayList<Item> rItems;
 
-	
 	public void Restore(String SaveName){
 		Scanner input = null;
 		try{
@@ -29,8 +29,11 @@ public class Restore{
 			for(int i =0; i < 4; i++){
 				
 				if(!input.hasNextInt()){
-					data[i] = input.nextLine();
-				
+					rItems = new ArrayList<Item>();
+					Item inv = input.nextLine();
+						
+					rItems.add(inv);		
+					
 				}
 				else{
 					data2[i] = input.nextInt();	
@@ -56,10 +59,6 @@ public class Restore{
 	
 	}
 	
-	public String SetInventory(){
-	
-		return data[0];
-	}
 
 	public int HpRestore(){
 		
