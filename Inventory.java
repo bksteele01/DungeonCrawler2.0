@@ -21,11 +21,21 @@ public class Inventory {
         items = new ArrayList<Item>();
         this.maxWeight = maxWeight;
     }
-
+	// how many items the inventory has
     public int Size(){
     	return items.size();
     }
-	
+
+    // returns a individual specific item
+    public Item getinv(int i) {
+    	
+
+    	return items.get(i);
+    
+    }
+		    
+		
+
     // returns true on success, false when full
     public boolean add(Item item) {
         if ((item.getWeight() + totalWeight()) > maxWeight) {

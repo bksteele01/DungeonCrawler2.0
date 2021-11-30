@@ -23,13 +23,12 @@ public class Save {
 	private Player player;	
 
 	
-	public Save(int hp, int pCol, int pRow, String SaveName, int Room, Inventory items){
+	public Save(int hp, int pCol, int pRow, String SaveName, int Room){
 		this.hp = hp;
 		this.pCol = pCol;
 		this.pRow = pRow;
 		this.SaveName = SaveName;
 		this.Room = Room;
-		this.items = items;		
 		
 	}
 	
@@ -40,12 +39,18 @@ public class Save {
 				
 				PrintWriter out = new PrintWriter(this.SaveName + ".txt");
 				
-					
+						
 				out.println(this.hp);
 				out.println(this.pCol);
 				out.println(this.pRow);
 				out.println(this.Room);
-				out.println(this.items);
+
+				for(int i = 0; i < player.getInventory().Size(); i++){
+				Item item = player.getInventory().getinv(i);
+							
+					out.println(item);
+				}
+
 				out.close();
 
 				

@@ -198,7 +198,7 @@ public class Game {
 		System.out.print("Save name: ");
 		Scanner input = new Scanner(System.in);
 		saveName = input.next();			
-		Save save = new Save(player.getHealth(), player.getCol(), player.getRow(), saveName, whichRoom, player.getInventory());
+		Save save = new Save(player.getHealth(), player.getCol(), player.getRow(), saveName, whichRoom);
 		//calls method to save data to file
 		save.SaveMaker();	
 		redrawMapAndHelp();
@@ -219,11 +219,9 @@ public class Game {
 		player.setPosition(load.rowRestore(), load.colRestore());		
 		
 		//replaces the inventory and replaces it with the new inventory
-		int count = player.getInventory().Size();
-		for(int i = 0; i < count; i++){
-			drop();	
-		}
-		player.getInventory().add(load.SetInventory());
+		
+		
+		//player.getInventory().add(load.SetInventory());
 		
 		redrawMapAndHelp();
 		break;

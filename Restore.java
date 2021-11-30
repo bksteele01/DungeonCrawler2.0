@@ -30,9 +30,9 @@ public class Restore{
 				
 				if(!input.hasNextInt()){
 					rItems = new ArrayList<Item>();
-					Item inv = input.nextLine();
+					String inv = input.nextLine();
 						
-					rItems.add(inv);		
+					
 					
 				}
 				else{
@@ -47,7 +47,7 @@ public class Restore{
 
 		}catch(FileNotFoundException e){
 			System.out.print("File not found");
-
+			
 		
 		}
 		
