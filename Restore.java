@@ -15,23 +15,25 @@ public class Restore{
 	private Player player;
 	public String SaveName;
 
-	//private String[] data = new String[2];
 	private int[] data2 = new int[4];
 	
+
 	public void Restore(String SaveName, Player player){
+		int count = 0;
 		this.player = player;
 		Scanner input = null;
 		try{
 			FileInputStream file = new FileInputStream(SaveName + ".txt");
 			input = new Scanner(file);
-		
-			for(int i =0; i < this.player.getInventory().Size()+4; i++){
+		 	
+
+			for(int i =0; i < 9; i++){
 				
 				if(!input.hasNextInt()){
 					
-					String item = input.nextLine();		
-					Item newitem this.player.getInventory.ItemConverter(item);
-					this.player.getInventory.add(newitem);
+					String item = input.nextLine();	
+					Item newitem = this.player.getInventory().ItemConverter(item);
+					this.player.getInventory().add(newitem);
 
 				}
 				else{

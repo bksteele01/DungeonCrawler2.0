@@ -29,18 +29,26 @@ public class Inventory {
     // returns a individual specific item
     public Item getinv(int i) {
     	
-
     	return items.get(i);
+    
+    }
+    // erase Array used for loading new items
+    public void eraseArray(){
+    	items.clear();
     
     }
   // converts the strings from the file and turns them to the type type
     public Item ItemConverter(String itemconv){
     	String[] output = itemconv.split(",");
-	
 	ItemType newtype = ItemType.valueOf(output[0]);
+	String newName = output[1];
+	int newWeight = Integer.parseInt(output[2]);
+	int newValue = Integer.parseInt(output[3]);
+	int newStrength = Integer.parseInt(output[4]);
 	
-    	
-    	return;
+	Item newItem = new Item(newtype, newName, newWeight, newValue, newStrength);
+
+    	return newItem;
     }
 		
 

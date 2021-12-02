@@ -207,21 +207,21 @@ public class Game {
 		// key for restoring the save
 	case r:
 		// calls on the restore class and calls the method
+		
 		System.out.print("Enter save name to load: ");
 		Scanner input2 = new Scanner(System.in);
 		saveName = input2.next();
+		// replaces the inventory and adds the loaded items
+		player.getInventory().eraseArray();
 		Restore load = new Restore();
-		
+
 		//converts the current player status into the save files
+		
 		load.Restore(saveName, player);
 		whichRoom = load.RoomRestore();
 		player.setHealth(load.HpRestore());
 		player.setPosition(load.rowRestore(), load.colRestore());		
 		
-		//replaces the inventory and replaces it with the new inventory
-		
-		
-		//player.getInventory().add(load.SetInventory());
 		
 		redrawMapAndHelp();
 		break;
