@@ -23,12 +23,13 @@ public class Save {
 	private Player player;	
 
 	
-	public Save(int hp, int pCol, int pRow, String SaveName, int Room){
+	public Save(int hp, int pCol, int pRow, String SaveName, int Room, Player player){
 		this.hp = hp;
 		this.pCol = pCol;
 		this.pRow = pRow;
 		this.SaveName = SaveName;
 		this.Room = Room;
+		this.player = player;
 		
 	}
 	
@@ -45,10 +46,15 @@ public class Save {
 				out.println(this.pRow);
 				out.println(this.Room);
 
-				for(int i = 0; i < player.getInventory().Size(); i++){
-				Item item = player.getInventory().getinv(i);
-							
-					out.println(item);
+				for(int i = 0; i < this.player.getInventory().Size(); i++){
+				Item item = this.player.getInventory().getinv(i);
+					ItemType type = item.getType();
+					String itemName = item.getName();
+					int Weight = item.getWeight();
+					int Value = item.getValue();
+					int Strength = item.getStrength();
+
+					out.println(type + "," + itemName + "," + Weight + "," + Value + "," + Strength);
 				}
 
 				out.close();

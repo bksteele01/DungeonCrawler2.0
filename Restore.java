@@ -18,22 +18,21 @@ public class Restore{
 	//private String[] data = new String[2];
 	private int[] data2 = new int[4];
 	
-	private ArrayList<Item> rItems;
-
-	public void Restore(String SaveName){
+	public void Restore(String SaveName, Player player){
+		this.player = player;
 		Scanner input = null;
 		try{
 			FileInputStream file = new FileInputStream(SaveName + ".txt");
 			input = new Scanner(file);
 		
-			for(int i =0; i < 4; i++){
+			for(int i =0; i < this.player.getInventory().Size()+4; i++){
 				
 				if(!input.hasNextInt()){
-					rItems = new ArrayList<Item>();
-					String inv = input.nextLine();
-						
 					
-					
+					String item = input.nextLine();		
+					Item newitem this.player.getInventory.ItemConverter(item);
+					this.player.getInventory.add(newitem);
+
 				}
 				else{
 					data2[i] = input.nextInt();	

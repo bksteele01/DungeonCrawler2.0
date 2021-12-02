@@ -198,7 +198,7 @@ public class Game {
 		System.out.print("Save name: ");
 		Scanner input = new Scanner(System.in);
 		saveName = input.next();			
-		Save save = new Save(player.getHealth(), player.getCol(), player.getRow(), saveName, whichRoom);
+		Save save = new Save(player.getHealth(), player.getCol(), player.getRow(), saveName, whichRoom, player);
 		//calls method to save data to file
 		save.SaveMaker();	
 		redrawMapAndHelp();
@@ -213,7 +213,7 @@ public class Game {
 		Restore load = new Restore();
 		
 		//converts the current player status into the save files
-		load.Restore(saveName);
+		load.Restore(saveName, player);
 		whichRoom = load.RoomRestore();
 		player.setHealth(load.HpRestore());
 		player.setPosition(load.rowRestore(), load.colRestore());		

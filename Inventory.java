@@ -33,7 +33,15 @@ public class Inventory {
     	return items.get(i);
     
     }
-		    
+  // converts the strings from the file and turns them to the type type
+    public Item ItemConverter(String itemconv){
+    	String[] output = itemconv.split(",");
+	
+	ItemType newtype = ItemType.valueOf(output[0]);
+	
+    	
+    	return;
+    }
 		
 
     // returns true on success, false when full
