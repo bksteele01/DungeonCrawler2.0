@@ -19,7 +19,6 @@ public class Game {
     private int whichRoom;
     private String saveName;
 
-
     public Game() {
 
 	Scanner input = new Scanner(System.in);
@@ -200,7 +199,7 @@ public class Game {
 		saveName = input.next();			
 		Save save = new Save(player.getHealth(), player.getCol(), player.getRow(), saveName, whichRoom, player);
 		//calls method to save data to file
-		save.SaveMaker();	
+		save.SaveMaker();
 		redrawMapAndHelp();
 				
 		break;
@@ -214,15 +213,13 @@ public class Game {
 		// replaces the inventory and adds the loaded items
 		player.getInventory().eraseArray();
 		Restore load = new Restore();
-
+		
 		//converts the current player status into the save files
 		
 		load.Restore(saveName, player);
 		whichRoom = load.RoomRestore();
 		player.setHealth(load.HpRestore());
-		player.setPosition(load.rowRestore(), load.colRestore());		
-		
-		
+		player.setPosition(load.rowRestore(), load.colRestore());			
 		redrawMapAndHelp();
 		break;
 		

@@ -4,7 +4,7 @@ import java.util.Scanner;
 import java.util.ArrayList;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-
+import java.util.Arrays;
 
 public class Restore{
 	private int hp;
@@ -14,35 +14,35 @@ public class Restore{
 	private Inventory items;
 	private Player player;
 	public String SaveName;
-
 	private int[] data2 = new int[4];
-	
+	public int i = 0;
+	public String itemConv ="";
 
 	public void Restore(String SaveName, Player player){
-		int count = 0;
 		this.player = player;
+		
 		Scanner input = null;
 		try{
 			FileInputStream file = new FileInputStream(SaveName + ".txt");
 			input = new Scanner(file);
-		 	
-
-			for(int i =0; i < 9; i++){
-				
-				if(!input.hasNextInt()){
+								
+				while(input.hasNextLine()){
 					
-					String item = input.nextLine();	
-					Item newitem = this.player.getInventory().ItemConverter(item);
-					this.player.getInventory().add(newitem);
-
-				}
-				else{
-					data2[i] = input.nextInt();	
+					if(!input.hasNextInt()){
 						
-				}
-				
+						itemConv = input.nextLine();
+						Item newitem = player.getInventory().ItemConverter(itemConv);
+						this.player.getInventory().add(newitem);
+
+					}
+					else{
+					
+						data2[i] = input.nextInt();	
+						
+					}
+					i++;
+				}	
 			
-			}
 			input.close();
 			
 
@@ -53,11 +53,11 @@ public class Restore{
 		}
 		
 	}
-	public int RoomRestore(){
 	
-		return data2[3];
+	
 
-	
+	public int RoomRestore(){
+		return data2[3];	
 	}
 	
 
