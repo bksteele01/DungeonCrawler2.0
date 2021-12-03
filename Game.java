@@ -19,7 +19,6 @@ public class Game {
     private int whichRoom;
     private String saveName;
 
-
     public Game() {
 
 	Scanner input = new Scanner(System.in);
@@ -51,24 +50,27 @@ public class Game {
 
     // prints a help menu to the left of the map
     private void showHelp() {
-        String[] cmds = {"Commands:",
+         String[] cmds = {"Commands:",
                          "---------",
-			 "Player - @",
-			 "Enemy - *",
-			 "Portal - p",
-			 "Item - i",
+                         "Player - @",
+                         "Enemy - *",
+                         "Portal - p",
+                         "Item - i",
                          "Move: Arrow Keys",
                          "Pickup an item: p",
                          "Drop an item: d",
                          "List items: l",
                          "Equip weapon: w",
                          "Equip armor: a",
-			 "Save Game: s",
-			 "Use portal: u",
+                         "Save Game: s",
+                         "Use portal: u",
+                         "Restore a save: r",
+                         "Enter door: u",
                          "Quit: q"
-			 
-			 
+
+
         };
+
         Terminal.setForeground(Color.GREEN);
         for (int row = 0; row < cmds.length; row++) {
             Terminal.warpCursor(row + 1, room.getCols());
@@ -221,13 +223,31 @@ public class Game {
 		System.out.print("Save name: ");
 		Scanner input = new Scanner(System.in);
 		saveName = input.next();			
-		Save save = new Save(player.getName() ,player.getHealth(), player.getCol(), player.getRow(), saveName, whichRoom, player.getInventory());
-		
-		save.SaveMaker();	
+		Save save = new Save(player.getHealth(), player.getCol(), player.getRow(), saveName, whichRoom, player);
+		//calls method to save data to file
+		save.SaveMaker();
 		redrawMapAndHelp();
 				
 		break;
-
+		// key for restoring the save
+	case r:
+		// calls on the restore class and calls the method
+		
+		System.out.print("Enter save name to load: ");
+		Scanner input2 = new Scanner(System.in);
+		saveName = input2.next();
+		// replaces the inventory and adds the loaded items
+		player.getInventory().eraseArray();
+		Restore load = new Restore();
+		
+		//converts the current player status into the save files
+		
+		load.Restore(saveName, player);
+		whichRoom = load.RoomRestore();
+		player.setHealth(load.HpRestore());
+		player.setPosition(load.rowRestore(), load.colRestore());			
+		redrawMapAndHelp();
+		break;
 		
             // handle movement
             case LEFT: 

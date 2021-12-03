@@ -9,29 +9,27 @@ import java.util.Collections;
 import java.io.IOException;
 import ansi_terminal.*;
 import java.io.PrintWriter;
-
+import java.io.FileNotFoundException;
 
 public class Save {
-
-	private String name;
 	private int hp;
 	private int pCol;
-	private int pPos;
-	private String SaveName;
+	private int pRow;
+	public	String SaveName;
 	private boolean Pass = true;
 	private int Room;
 	private Inventory items;
 	
+	private Player player;	
 
 	
-	public Save(String name, int hp, int pCol, int pPos, String SaveName, int Room, Inventory items){
+	public Save(int hp, int pCol, int pRow, String SaveName, int Room, Player player){
 		this.hp = hp;
-		this.name = name;
 		this.pCol = pCol;
-		this.pPos = pPos;
+		this.pRow = pRow;
 		this.SaveName = SaveName;
 		this.Room = Room;
-		this.items = items;
+		this.player = player;
 		
 	}
 	
@@ -42,13 +40,23 @@ public class Save {
 				
 				PrintWriter out = new PrintWriter(this.SaveName + ".txt");
 				
-					
+						
 				out.println(this.hp);
-				out.println(this.name);
 				out.println(this.pCol);
-				out.println(this.pPos);
+				out.println(this.pRow);
 				out.println(this.Room);
-				out.println(this.items);
+
+				for(int i = 0; i < this.player.getInventory().Size(); i++){
+				Item item = this.player.getInventory().getinv(i);
+					ItemType type = item.getType();
+					String itemName = item.getName();
+					int Weight = item.getWeight();
+					int Value = item.getValue();
+					int Strength = item.getStrength();
+
+					out.println(type + "," + itemName + "," + Weight + "," + Value + "," + Strength);
+				}
+
 				out.close();
 
 				
@@ -61,11 +69,7 @@ public class Save {
 		
 	
 	}
-	public void Restore(){
 		
-	
-	
-	}
-	
+
 
 }

@@ -1,6 +1,6 @@
 // Inventory.java
 // allows for storing some number of items for the player
-
+import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -20,6 +20,73 @@ public class Inventory {
     public Inventory(int maxWeight) {
         items = new ArrayList<Item>();
         this.maxWeight = maxWeight;
+    }
+	// how many items the inventory has
+    public int Size(){
+    	return items.size();
+    }
+
+    // returns a individual specific item
+    public Item getinv(int i) {
+    	
+    	return items.get(i);
+    
+    }
+    // erase Array used for loading new items
+    public void eraseArray(){
+    	items.clear();
+    
+    }
+
+    //This will convert the items frmo the text file to an item object
+    public Item ItemConverter(String itemConv){
+    //the string itemConv should be for example
+    //Weapon,Golden Sword,10,75,15
+    	ItemType type = null;
+	String newName = "";
+	int newWeight = 0;
+	int newValue = 0;
+	int newStrength = 0;
+    	String[] output = itemConv.split(",");
+	
+	for(int x = 0; x < output.length-1; x++){
+		
+		if(x == 0){
+
+    			if(output[0].contains("Weapon")){
+    				type = ItemType.valueOf("Weapon");
+    			}
+			else if(output[0].contains("Armor")){
+				type = ItemType.valueOf("Armor");
+			}
+			else if(output[0].contains("Other")){
+				type = ItemType.valueOf("Other");
+			}
+		}
+		else if(x == 1){
+			newName = output[x];
+		
+		}
+		else if(x == 2){
+			newWeight = Integer.parseInt(output[x]);
+
+		}
+		else if(x == 3){
+		
+			newValue = Integer.parseInt(output[x]);
+
+		}
+		else if(x == 4){
+		
+			newStrength = Integer.parseInt(output[x]);
+		}
+
+
+	}
+
+    	Item newItem = new Item(type, newName, newWeight, newValue, newStrength);
+	
+	return newItem;
     }
 
     // returns true on success, false when full
