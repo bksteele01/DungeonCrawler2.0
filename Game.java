@@ -53,6 +53,10 @@ public class Game {
     private void showHelp() {
         String[] cmds = {"Commands:",
                          "---------",
+			 "Player - @",
+			 "Enemy - *",
+			 "Portal - p",
+			 "Item - i",
                          "Move: Arrow Keys",
                          "Pickup an item: p",
                          "Drop an item: d",
@@ -60,7 +64,7 @@ public class Game {
                          "Equip weapon: w",
                          "Equip armor: a",
 			 "Save Game: s",
-			 "Enter door: u",
+			 "Use portal: u",
                          "Quit: q"
 			 
 			 
@@ -123,6 +127,9 @@ public class Game {
 		if(whichRoom == 2){
 		boxes2.remove(thing);
 		}
+		if(whichRoom == 3){
+		boxes3.remove(thing);
+		}
             } else {
                 setStatus("This is too large for you to add!");
             }
@@ -171,7 +178,7 @@ public class Game {
                 break;
 	    case u:
 		if(whichRoom == 1){
-	    	if(player.getCol() == 15 && player.getRow() == 1){
+	    	if(player.getCol() == 46 && player.getRow() == 26){
 			whichRoom = 2;
 			player.setPosition(2, 2);
 			break;
@@ -181,15 +188,32 @@ public class Game {
 		}
 
 		if(whichRoom == 2){
-		if(player.getCol() == 15 && player.getRow() == 1){
-                        whichRoom = 3;
-                        player.setPosition(10, 10);
+		if(player.getCol() == 46 && player.getRow() == 1 || player.getCol() == 2 && player.getRow() == 1){
+                        if(player.getCol() == 46 && player.getRow() == 1){
+				whichRoom = 3;
+				player.setPosition(2,2);
+                        break;
+                }else{
+                        whichRoom = 1;
+			player.setPosition(2,2);
+			break;
+                    }
+		}else{
+			break;
+		}
+                 }    
+	             
+		if(whichRoom == 3){
+		if(player.getCol() == 2 && player.getRow() == 2){
+                        whichRoom = 2;
+                        player.setPosition(2, 2);
                         break;
                 }else{
                         break;
-                    
-	       		}
-	             }
+
+                        }
+                     }
+		
 			
 		// key for saving the game
 	case s:
@@ -473,6 +497,7 @@ public class Game {
                 if (thingHere != null) {
 
                         setStatus("Here you find: " + thingHere.getItem().getName());
+			Terminal.pause(2);
                 }
             }
 	    i++;

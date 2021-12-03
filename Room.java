@@ -48,7 +48,7 @@ public class Room {
             "    ##  ##                       #######  #######           ",
             "    ##  ##                       ##            ##           ",
             "######  ####                     ##  i  *      ##           ",
-            "##        ##                     ##            ##           ",
+            "##        ##                     ##          p ##           ",
             "## i  *   ##                     ################           ",
             "##        ##                                                ",
             "############                                                "
@@ -57,7 +57,7 @@ public class Room {
 	if(gridnum == 2){
 	grid = new String[] {
         "#####################               ############            ",
-        "#   @               #               #          #            ",
+        "#p  @               #               #        p #            ",
 	"#                   #               #          #            ",
 	"#                   #               #####      #            ",
 	"#             i     ##############      #      #            ",
@@ -90,10 +90,10 @@ public class Room {
 	}
 	if(gridnum == 3){
         grid = new String[] {
-        "                      ############                          ",
-        "                      #          #                          ",
-        "                      #          #                          ",
-        "                      #          #                          ",
+        "##################################                          ",
+        "#                                #                          ",
+        "#p                               #                          ",
+        "#######################          #                          ",
         "                      #          #                          ",
         "                      #          #                          ",
         "                      #          #                          ",
@@ -125,7 +125,7 @@ public class Room {
 }
 
 }
-    // returns the player's strting location in this room
+    // returns the player's starting location in this room
     public Position getPlayerStart() {
         for (int row = 0; row < rows; row++) {
             for (int col = 0; col < cols; col++) {
@@ -186,7 +186,11 @@ public class Room {
                     System.out.print('\u2588');
                 } else {
                     // whatever else, just draw a blank (we DONT draw starting items from map)
+		    if(cell == 'p'){
+		    	System.out.print("p");
+			}else{
                     System.out.print(' ');
+			}
                 }
             }
 
@@ -196,7 +200,7 @@ public class Room {
 
     // returns if a given cell in the map is walkable or not
     public boolean canGo(int row, int col) {
-        return grid[row].charAt(col) != '#';
+        return grid[row].charAt(col-1) != '#';
     }
 }
 
