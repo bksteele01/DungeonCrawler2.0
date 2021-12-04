@@ -2,8 +2,15 @@
 // this class contains a static method for creating enemies randomly
 
 import java.util.Random;
-
+/**
+ * EnemyGenerator is a constructor that generates enemies.
+ */
 public class EnemyGenerator {
+	/**
+	 * The generate method generates an enemy object.
+	 * @param row is the row that the enemy is generated on.
+	 * @param col is the column that the enemy is generated on.
+	 */
 	public static Enemy generate(int row, int col) {
 		//hp damage protection
 		//These are the enemies that will randomly generate  
@@ -32,6 +39,10 @@ public class EnemyGenerator {
 		}
 		return chosen;
 	}
+	/**
+	 * This method generates a random number between one and sixteen and is used to pick
+	 * the object out of the list.
+	 */
 	public static int RandomNum(){
 
 		//this method generates a random number between one and sixteen, and is used

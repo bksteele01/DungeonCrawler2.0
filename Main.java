@@ -3,6 +3,9 @@
 
 import ansi_terminal.*;
 import java.util.Scanner;
+/**
+ * The Main class is used to start the game and initiate a new instance of the game.
+ */
 public class Main {
 	public static void main(String args[]) {
 		// put termain in raw mode
