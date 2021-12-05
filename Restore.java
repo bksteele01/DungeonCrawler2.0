@@ -5,7 +5,9 @@ import java.util.ArrayList;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.Arrays;
-
+/**
+ * The restore class is used to load a save file.
+ */
 public class Restore{
 	private int hp;
 	private int rCol;
@@ -55,22 +57,34 @@ public class Restore{
 	}
 	
 	
-
+        /**
+	 * The RoomRestore method returns the last room from the save.
+	 * @return the last room from the save.
+	 */
 	public int RoomRestore(){
 		return data2[3];	
 	}
 	
-
+	/**
+	 * The HpRestore methord returns the hp of the player.
+	 * @return the hp of the player.
+	 */
 	public int HpRestore(){
 		
 		return data2[0];
 	}
-
+	/**
+	 * The colRestore method returns the column of the player.
+	 * @return the column of the player.
+	 */
 	public int colRestore(){
 	
 		return data2[1];
 	}
-
+        /**
+	 * The rowRestore method returns the row of the player.
+	 * @return the row of the player.
+	 */
 	public int rowRestore(){
 	
 		return data2[2];

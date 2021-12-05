@@ -10,7 +10,9 @@ import java.io.IOException;
 import ansi_terminal.*;
 import java.io.PrintWriter;
 import java.io.FileNotFoundException;
-
+/**
+ * The Save class is resposible for saving the current game.
+ */
 public class Save {
 	private int hp;
 	private int pCol;
@@ -22,7 +24,15 @@ public class Save {
 	
 	private Player player;	
 
-	
+        /**
+	 * The Save constructor is responsible for creating an object to save.
+	 * @param hp is the hp of the player to  be saved.
+	 * @param pCol is the column of the player to be saved.
+	 * @param pRow is the row of the playere to be saved.
+	 * @param SaveName is the name of the save file.
+	 * @param Room is the room that the player in the save is currently on.
+	 * @param player is the player name of the save.
+	 */	
 	public Save(int hp, int pCol, int pRow, String SaveName, int Room, Player player){
 		this.hp = hp;
 		this.pCol = pCol;
@@ -32,7 +42,9 @@ public class Save {
 		this.player = player;
 		
 	}
-	
+	/**
+	 * The SaveMaker method performs the save.
+	 */
 	public void SaveMaker(){
 		try{
 			if(Pass == true){
