@@ -99,7 +99,7 @@ public class Room {
         "                      #          #                          ",
         "      #################          ######################     ",
         "      #                                               #     ",
-        "      #                                               #     ",
+        "      #                                         [ ]   #     ",
         "      #                                               #     ",
         "      #                                               #     ",
         "      #                                               #     ",
@@ -186,8 +186,16 @@ public class Room {
                     System.out.print('\u2588');
                 } else {
                     // whatever else, just draw a blank (we DONT draw starting items from map)
-		    if(cell == 'p'){
-		    	System.out.print("p");
+		    if(cell == 'p' || cell == '[' || cell == ']'){
+		    	if(cell == 'p'){
+				System.out.print("p");
+			}
+			if(cell == '['){
+				System.out.print("[");
+			}
+			if(cell == ']'){
+				System.out.print("]");
+			}
 			}else{
                     System.out.print(' ');
 			}

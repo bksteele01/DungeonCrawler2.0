@@ -18,6 +18,7 @@ public class Game {
     private ArrayList<Enemy> enemies3;
     private int whichRoom;
     private String saveName;
+    private boolean healthused;
 
     public Game() {
 
@@ -45,6 +46,7 @@ public class Game {
 	enemies3 = room3.getEnemies();
 	whichRoom = 1;
 	saveName = "";
+	healthused = false;
 
     }
 
@@ -56,6 +58,7 @@ public class Game {
                          "Enemy - *",
                          "Portal - p",
                          "Item - i",
+			 "Health Station - [ ]",
                          "Move: Arrow Keys",
                          "Pickup an item: p",
                          "Drop an item: d",
@@ -65,7 +68,7 @@ public class Game {
                          "Save Game: s",
                          "Use portal: u",
                          "Restore a save: r",
-                         "Enter door: u",
+                         "Interact with door or health station: u",
                          "Quit: q"
 
 
@@ -206,16 +209,32 @@ public class Game {
                  }    
 	             
 		if(whichRoom == 3){
-		if(player.getCol() == 2 && player.getRow() == 2){
-                        whichRoom = 2;
-                        player.setPosition(2, 2);
-                        break;
-                }else{
-                        break;
+		if((player.getCol() == 2 && player.getRow() == 2) || (player.getCol() == 50 && player.getRow() == 9)){
+                        if(player.getCol() == 2 && player.getRow() == 2){	
+				whichRoom = 2;
+                        	player.setPosition(2, 2);
+                        	break;
+                	}
+			if(player.getCol() == 50 && player.getRow() == 9){
+				if(healthused == false){
+					player.setHealth(100);
+					healthused = true;
+					System.out.print("Your health has been regenerated, and current hp is 100");
+					Terminal.pause(2);
+					break;
+				}
+				if(healthused == true){
+					System.out.print("This health station has been used already!");
+					Terminal.pause(2);
+					break;
+				}
 
-                        }
-                     }
-		
+                     	}
+		}else{
+			break;
+
+		}
+		}
 			
 		// key for saving the game
 	case s:
