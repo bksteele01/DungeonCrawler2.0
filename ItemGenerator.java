@@ -2,8 +2,13 @@
 // this class contains a static method for creating items randomly
 
 import java.util.Random;
-
+/**
+ * The ItemGenerator class generates an item randomly.
+ */
 public class ItemGenerator {
+	/**
+	 * The generate method instantiates a new item.
+	 */
 	public static Item generate() {
 		// TODO: replace this with your own code! 
 		//can add it to the inventory.
@@ -87,7 +92,9 @@ public class ItemGenerator {
 		}
 		return chosen;
 	}
-
+        /**
+	 * The RandomNum method generates a random number between one and sixteen to pick an item.
+	 */
 	public static int RandomNum(){
 
 		//this method generates a random number between one and sixteen, and is used

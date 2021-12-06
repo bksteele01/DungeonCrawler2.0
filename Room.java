@@ -4,7 +4,10 @@
 
 import java.util.ArrayList;
 import ansi_terminal.*;
-
+/**
+ * The room class creates the display of each room, also providing a starting location for player,
+ * boxes, and enemies.
+ */
 public class Room {
     // the grid holds the room geometry
     private String[] grid;
@@ -12,7 +15,10 @@ public class Room {
     // the size of the room
     private int rows;
     private int cols;
-
+    /** 
+     * The Room constructor creates the rooms.
+     * @param gridnum is the number of the room.
+     */
     public Room(int gridnum) {
         // this initializes the room to one specific space
         rows = 30;
@@ -99,7 +105,7 @@ public class Room {
         "                      #          #                          ",
         "      #################          ######################     ",
         "      #                                               #     ",
-        "      #                                               #     ",
+        "      #                                         [ ]   #     ",
         "      #                                               #     ",
         "      #                                               #     ",
         "      #                                               #     ",
@@ -126,6 +132,9 @@ public class Room {
 
 }
     // returns the player's starting location in this room
+    /**
+     * The method getPlayerStart returns the player's starting position.
+     */
     public Position getPlayerStart() {
         for (int row = 0; row < rows; row++) {
             for (int col = 0; col < cols; col++) {
@@ -140,6 +149,10 @@ public class Room {
 
     // returns a set of item boxes for this map, this is here because it depends on
     // the room geometry for where the boxes make sense to be
+    /**
+     * The getBoxes method returns a set of item boxes for this map.
+     * @return boxes on the map.
+     */
     public ArrayList<Box> getBoxes() {
         ArrayList<Box> boxes = new ArrayList<Box>();
         for (int row = 0; row < rows; row++) {
@@ -152,8 +165,12 @@ public class Room {
 
         return boxes;
     }
-
+ 
     // returns a set of enemies from this map, similarly to the boxes above
+    /**
+     * The getEnemies method returns a set of enemies from this map.
+     * @return enemies from the map.
+     */
     public ArrayList<Enemy> getEnemies() {
         ArrayList<Enemy> enemies = new ArrayList<Enemy>();
         for (int row = 0; row < rows; row++) {
@@ -166,16 +183,25 @@ public class Room {
 
         return enemies;
     }
-
+    /**
+     * The getRows method returns the rows from the map.
+     * @return the rows from the map.
+     */
     public int getRows() {
         return rows;
     }
-
+    /**
+     * The getCols methord returns the columns from the map.
+     * @return the columns from the map.
+     */
     public int getCols() {
         return cols;
     }
 
     // draws the map to the screen
+    /**
+     * The draw method draws the map to the screen.
+     */
     public void draw() {
         Terminal.clear();
         for (int row = 0; row < rows; row++) {
@@ -186,8 +212,16 @@ public class Room {
                     System.out.print('\u2588');
                 } else {
                     // whatever else, just draw a blank (we DONT draw starting items from map)
-		    if(cell == 'p'){
-		    	System.out.print("p");
+		    if(cell == 'p' || cell == '[' || cell == ']'){
+		    	if(cell == 'p'){
+				System.out.print("p");
+			}
+			if(cell == '['){
+				System.out.print("[");
+			}
+			if(cell == ']'){
+				System.out.print("]");
+			}
 			}else{
                     System.out.print(' ');
 			}
@@ -199,6 +233,10 @@ public class Room {
     }
 
     // returns if a given cell in the map is walkable or not
+    /**
+     * The canGo methord returns if a given cell in the map is walkable or not.
+     * @return the cell's coordinates.
+     */
     public boolean canGo(int row, int col) {
         return grid[row].charAt(col-1) != '#';
     }

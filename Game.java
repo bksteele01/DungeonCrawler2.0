@@ -4,7 +4,9 @@
 import java.util.ArrayList;
 import ansi_terminal.*;
 import java.util.Scanner;
-
+/**
+ * The Game class is responsible for iniating a new game and continuing it.
+ */
 public class Game {
     private Room room;
     private Room room2;
@@ -18,7 +20,14 @@ public class Game {
     private ArrayList<Enemy> enemies3;
     private int whichRoom;
     private String saveName;
+<<<<<<< HEAD
+    private boolean healthused;
 
+=======
+    /**
+     * The Game constructor creates the game.
+     */
+>>>>>>> 3b4ee2936143d294edc522739698935c8bcf1c3c
     public Game() {
 
 	Scanner input = new Scanner(System.in);
@@ -45,10 +54,14 @@ public class Game {
 	enemies3 = room3.getEnemies();
 	whichRoom = 1;
 	saveName = "";
+	healthused = false;
 
     }
 
-    // prints a help menu to the left of the map
+    // prints a help menu to the right  of the map
+    /**
+     * The showHelp method prints the help menu to the right of the map.
+     */
     private void showHelp() {
          String[] cmds = {"Commands:",
                          "---------",
@@ -56,6 +69,7 @@ public class Game {
                          "Enemy - *",
                          "Portal - p",
                          "Item - i",
+			 "Health Station - [ ]",
                          "Move: Arrow Keys",
                          "Pickup an item: p",
                          "Drop an item: d",
@@ -65,7 +79,7 @@ public class Game {
                          "Save Game: s",
                          "Use portal: u",
                          "Restore a save: r",
-                         "Enter door: u",
+                         "Interact with door or health station: u",
                          "Quit: q"
 
 
@@ -80,6 +94,10 @@ public class Game {
     }
 
     // right under the map we keep a line for status messages
+    /**
+     * The setStatus method sets the line under the map for status messages.
+     * @param mesg is the message it is setting.
+     */
     private void setStatus(String mesg) {
         // clear anything old first
         if(whichRoom == 1){
@@ -115,6 +133,9 @@ public class Game {
     }
 
     // code for when the player tries to pickup an item
+    /**
+     * The pickup method is used when the player tries to pickup an item.
+     */
     private void pickup() {
         Box thing = checkForBox();
         if (thing == null) {
@@ -140,6 +161,9 @@ public class Game {
     }
 
     // code for when the player tries to drop an item
+    /**
+     * The drop method is for when a player tries to drop an item.
+     */
     private void drop() {
         if (checkForBox() == null) {
             Item dropped = player.getInventory().drop();
@@ -154,6 +178,10 @@ public class Game {
     }
 
     // handle the key which was read - return false if we quit the game
+    /**
+     * The handleKey method takes the user input from the menu.
+     * @param key is the key that was pressed.
+     */
     private boolean handleKey(Key key) {
         switch (key) {
             case p:
@@ -206,16 +234,32 @@ public class Game {
                  }    
 	             
 		if(whichRoom == 3){
-		if(player.getCol() == 2 && player.getRow() == 2){
-                        whichRoom = 2;
-                        player.setPosition(2, 2);
-                        break;
-                }else{
-                        break;
+		if((player.getCol() == 2 && player.getRow() == 2) || (player.getCol() == 50 && player.getRow() == 9)){
+                        if(player.getCol() == 2 && player.getRow() == 2){	
+				whichRoom = 2;
+                        	player.setPosition(2, 2);
+                        	break;
+                	}
+			if(player.getCol() == 50 && player.getRow() == 9){
+				if(healthused == false){
+					player.setHealth(100);
+					healthused = true;
+					System.out.print("Your health has been regenerated, and current hp is 100");
+					Terminal.pause(2);
+					break;
+				}
+				if(healthused == true){
+					System.out.print("This health station has been used already!");
+					Terminal.pause(2);
+					break;
+				}
 
-                        }
-                     }
-		
+                     	}
+		}else{
+			break;
+
+		}
+		}
 			
 		// key for saving the game
 	case s:
@@ -312,6 +356,9 @@ public class Game {
 
     // this is called when we need to redraw the room and help menu
     // this happens after going into a menu like for choosing items
+    /**
+     * The redrawMapAndHelp method is called when we need to redraw the room and help menu.
+     */
     private void redrawMapAndHelp() {
        	if(whichRoom == 1){
 	room.draw();
@@ -327,6 +374,9 @@ public class Game {
     }
     }
     // returns a Box if the player is on it -- otherwise null
+    /**
+     * The checkForBox method checks the position for a box and if a player is standing on it.
+     */
      private Box checkForBox() {
 		Position playerLocation = player.getPosition();
         if(whichRoom == 1){
@@ -348,7 +398,10 @@ public class Game {
                 }
         }}
         return null;
-      }  
+      }
+    /**
+     * The checkBattles method checks the position for a enemy, to initiate a battle.
+     */  
     private boolean checkBattles() {
         if(whichRoom == 1){
 		Position playerLocation = player.getPosition();
@@ -399,7 +452,10 @@ public class Game {
 		return true;
 	}
 	return true;
-    }	
+    }
+    /**
+    * The run method runs and initiates the entire game.
+    */
     public void run() {
         // draw these for the first time now
 	int ii = 0;
