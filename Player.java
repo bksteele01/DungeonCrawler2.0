@@ -48,5 +48,6 @@ public class Player extends Character {
     public Inventory getInventory() {
         return items;
     }
+
 }
 

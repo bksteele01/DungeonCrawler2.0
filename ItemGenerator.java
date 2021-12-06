@@ -7,7 +7,7 @@ public class ItemGenerator {
 	public static Item generate() {
 		// TODO: replace this with your own code! 
 		//can add it to the inventory.
-
+		
 		ItemType weapon = ItemType.Weapon;
 		Item IronSword = new Item(weapon, "Iron Sword", 8, 50, 10);
 		Item GoldenSword = new Item(weapon, "Golden Sword", 10, 75, 15);
