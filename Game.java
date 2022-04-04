@@ -20,14 +20,10 @@ public class Game {
     private ArrayList<Enemy> enemies3;
     private int whichRoom;
     private String saveName;
-<<<<<<< HEAD
     private boolean healthused;
-
-=======
     /**
      * The Game constructor creates the game.
      */
->>>>>>> 3b4ee2936143d294edc522739698935c8bcf1c3c
     public Game() {
 
 	Scanner input = new Scanner(System.in);
